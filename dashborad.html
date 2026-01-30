@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>product Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body class=" min-h-screen">
+
+  <!-- Card -->
+  <div class=" mt-5 max-w-4xl mx-auto bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-5">
+
+    <h2 class="text-xl font-semibold mb-6">Add New Product</h2>
+
+    <form onsubmit="createProduct(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6  ">
+
+      <!-- Title -->
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Product Title
+        </label>
+        <input type="text" id="title"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="New Product" />
+      </div>
+
+      <!-- Price -->
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Price ($)
+        </label>
+        <input type="number" id="price"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="10" />
+      </div>
+
+      <!-- Category ID -->
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Category ID
+        </label>
+
+        <select name="" id="categoryId"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="Select Category">
+          <option value="">Select Category</option>
+          <option value="">Loading...</option>
+        </select>
+      </div>
+
+      <!-- Image URL -->
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Image URL
+        </label>
+        <input type="text" id="imageUrl"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="https://placehold.co/600x400" />
+      </div>
+
+      <!-- Description -->
+      <div class="md:col-span-2">
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Description
+        </label>
+        <textarea rows="2" id="description"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="A description"></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex items-end gap-5">
+        <!-- <button onclick="clearForm()" class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          clear
+        </button> -->
+        <button type="submit" class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Add
+        </button>
+
+
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+  <div lass="max-w-7xl mx-auto mt-12 px-6">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg  p-6">
+      <h3 class="text-xl font-semibold mb-6">Dashboard</h3>
+
+      <div
+        class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900 p-20">
+        <div>
+          <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center text-gray-600 bg-white border border-gray-300
+         hover:bg-gray-100 focus:ring-4 focus:ring-gray-100
+         font-medium rounded-lg text-sm px-3 py-1.5" type="button">
+            Action
+            <svg class="w-2.5 h-2.5 ms-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 4 4 4-4" />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdownAction" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+            <ul class="py-1 text-sm text-gray-700">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Reward</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Promote</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Activate account</a>
+              </li>
+            </ul>
+            <div class="py-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Delete User
+              </a>
+            </div>
+          </div>
+        </div>
+        <label for="table-search" class="sr-only">Search</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+          </div>
+          <input type="text" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300
+         rounded-lg w-80 bg-gray-50
+         focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users">
+        </div>
+      </div>
+
+      <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+          <tr>
+            <th class="px-6 py-3">ID</th>
+            <th class="px-6 py-3">Title</th>
+            <th class="px-6 py-3">Description</th>
+            <th class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="px-6 py-4">1</td>
+            <td class="px-6 py-4 font-medium text-gray-900">MacBook Pro 14"</td>
+            <td class="px-6 py-4 truncate max-w-xs">Apple laptop with M3 chip</td>
+            <td class="px-6 py-4 flex gap-2">
+              <button class="text-blue-600 hover:underline">Edit</button>
+              <button class="text-red-600 hover:underline">Delete</button>
+            </td>
+          </tr>
+
+          <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="px-6 py-4">2</td>
+            <td class="px-6 py-4 font-medium text-gray-900">iPhone 15 Pro</td>
+            <td class="px-6 py-4 truncate max-w-xs">Latest Apple smartphone</td>
+            <td class="px-6 py-4 flex gap-2">
+              <button class="text-blue-600 hover:underline">Edit</button>
+              <button class="text-red-600 hover:underline">Delete</button>
+            </td>
+          </tr>
+
+          <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="px-6 py-4">3</td>
+            <td class="px-6 py-4 font-medium text-gray-900">Samsung Galaxy S24</td>
+            <td class="px-6 py-4 truncate max-w-xs">Android flagship phone</td>
+            <td class="px-6 py-4 flex gap-2">
+              <button class="text-blue-600 hover:underline">Edit</button>
+              <button class="text-red-600 hover:underline">Delete</button>
+            </td>
+          </tr>
+
+          <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="px-6 py-4">4</td>
+            <td class="px-6 py-4 font-medium text-gray-900">iPad Pro</td>
+            <td class="px-6 py-4 truncate max-w-xs">High performance tablet</td>
+            <td class="px-6 py-4 flex gap-2">
+              <button class="text-blue-600 hover:underline">Edit</button>
+              <button class="text-red-600 hover:underline">Delete</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <nav class="flex items-center justify-between p-4" aria-label="Table navigation">
+        <span class="text-sm text-gray-500">
+          Showing <span class="font-semibold">21</span>–<span class="font-semibold">30</span>
+        </span>
+        <ul class="inline-flex items-center -space-x-px">
+          <li>
+            <button class="px-3 py-2 ml-0 leading-tight border rounded-l-lg hover:bg-gray-100">
+              Previous
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-2 border hover:bg-gray-100">
+              1
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-2 border hover:bg-gray-100">
+              2
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-2 border bg-blue-600 text-white">
+              3
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-2 border hover:bg-gray-100">
+              4
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-2 border hover:bg-gray-100">
+              5
+            </button>
+          </li>
+          <li>
+            <button class="px-3 py-2 leading-tight border rounded-r-lg hover:bg-gray-100">
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+
+
+  <script>
+
+    // const apiUrlProduct = 'https://fakestoreapi.com/products';
+    const api_url = 'https://api.escuelajs.co';
+    //get form input values
+    const titleInput = document.getElementById('title');
+    const priceInput = document.getElementById('price');
+    const descriptionInput = document.getElementById('description');
+    const categoryIdInput = document.getElementById('categoryId');
+    const imageUrlInput = document.getElementById('imageUrl');
+    const categoryIdSelect = document.getElementById('categoryId');
+
+
+
+
+
+    function createProduct(event) {
+      event.preventDefault(); // Prevent form submission
+      if (!titleInput.value || !priceInput.value || !categoryIdInput.value || !descriptionInput.value || !imageUrlInput.value) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      try {
+        const payload = {
+          title: titleInput.value,
+          price: priceInput.value,
+          categoryId: categoryIdInput.value,
+          description: descriptionInput.value,
+          images: [imageUrlInput.value]
+        };
+
+        console.log("Playload:", payload);
+        GetProductsUserInput(payload);
+
+
+
+
+        event.target.reset(); // Clear form after submission
+      } catch (error) {
+        console.error('Error creating product:', error);
+      }
+
+    }
+
+    // get all categories from api
+    // async function fetchCategories() {
+    //   try {
+    //     const response = await fetch(`${api_url}/api/v1/categories`);
+    //     const categories = await response.json();
+    //     console.log('Categories:', categories);
+
+    //   } catch (error) {
+    //     console.error('Error fetching categories:', error);
+    //   }
+    // }
+    // fetchCategories();
+
+
+    // function to post data to api
+    async function GetProductsUserInput(payload) {
+      console.log('Get Products function called');
+
+      const response = await fetch(`${api_url}/api/v1/products`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      // covert to json
+      const newProduct = await response.json();
+      console.log('New product created:', newProduct);
+
+      //get product to browser
+      fetchProducts()
+
+
+    }
+
+    // function clearForm() {
+    //   titleInput.value = '';
+    //   priceInput.value = '';
+    //   descriptionInput.value = '';
+    //   categoryIdInput.value = '';
+    //   imageUrlInput.value = '';
+    // }
+
+
+
+    //get product form api 
+    async function fetchProducts() {
+      try {
+        // fetch all products to website
+        const response = await fetch(`${api_url}/api/v1/products`);
+
+        // fetch only 10 products
+        // const response = await fetch(`${api_url}/api/v1/products?offset=0&limit=10`);
+        const products = await response.json();
+
+
+        // output to see all data not log 
+        // console.log('products', JSON.stringify(products, null, 2));
+
+        //call function renderProducts
+        renderProducts(products);
+
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    }
+    fetchProducts();
+
+    // render product to UI table
+    function renderProducts(products) {
+      const tableBody = document.getElementById('tableBody');
+      tableBody.innerHTML = '';
+
+      products.forEach(product => {
+        const row = document.createElement('tr');
+        row.classList.add('bg-white', 'border-b', 'hover:bg-gray-50');
+
+        row.innerHTML = `
+          <td class="px-6 py-4">${product.id}</td>
+          <td class="px-6 py-4 font-medium text-gray-900">${product.title}</td>
+          <td class="px-6 py-4 truncate max-w-xs">${product.description}</td>
+          <td class="px-6 py-4 flex gap-2">
+            <button class="text-blue-600 hover:underline" onclick="GetProductById(${product.id})">Edit</button>
+            <button class="text-red-600 hover:underline" onclick="DeleteProduct(${product.id})">Delete</button>
+          </td>
+        `;
+
+        tableBody.append(row);
+      });
+
+    }
+
+    // http method DELETE, post, put, patch, Get 
+    // function AlertCheck() {
+    //   alert('Delete function called');
+    //   if (confirm('Are you sure to delete this product?')) {
+    //     alert('Product deleted');
+    //   } else {
+    //     alert('Delete cancelled');
+    //   }
+    // }
+
+    const DeleteProduct = async (productId) => {
+      // alert('Delete function called');
+      if (confirm('Are you sure to delete this product?')) {
+        try {
+          const response = await fetch(`${api_url}/api/v1/products/${productId}`, {
+            method: 'DELETE',
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const result = await response.json();
+          console.log('Product deleted:', result);
+        } catch (error) {
+          console.error('Error deleting product:', error);
+        }
+        // rander again after delete
+        fetchProducts()
+        console.log('Product deleted');
+      } else {
+        console.log('Delete cancelled');
+      }
+
+    };
+
+    // function edit 
+    async function EditProduct(productId) {
+      try {
+        const response = await fetch(`${api_url}/api/v1/products/${productId}`, {
+          method: 'PUT',
+        });
+      } catch (error) {
+        console.error('Error editing product:', error);
+      }
+
+    }
+
+    async function GetProductById(productId) {
+
+      try {
+        const response = await fetch(`${api_url}/api/v1/products/${productId}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const product = await response.json();
+        titleInput.value = product.title;
+        priceInput.value = product.price;
+        descriptionInput.value = product.description;
+        categoryIdInput.value = product.category.id;
+        imageUrlInput.value = product.images[0];
+
+        // ouput to see product details in console
+        console.log('Product details:', product);
+
+
+
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+      }
+
+    }
+
+    // 08-1-2026 fetch categories and populate select options
+    async function getAllCategories() {
+      try {
+        const response = await fetch(`${api_url}/api/v1/categories`)
+        const categories = await response.json();
+        console.log('Categories fetched successfully', categories);
+
+        categoryIdSelect.innerHTML = '<option value="">Select Category</option>';
+
+
+
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    }
+    getAllCategories();
+
+
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+
+</body>
+
+</html>
