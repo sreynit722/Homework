@@ -9,13 +9,14 @@
 </head>
 
 <body class=" min-h-screen">
+  <h1 id="" class="text-xl font-semibold mb-6 text-center mt-5 ">CRUD product from API</h1>
 
-  <!-- Card -->
+  <!-- form -->
   <div class=" mt-5 max-w-4xl mx-auto bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-5">
 
-    <h2 class="text-xl font-semibold mb-6">Add New Product</h2>
+    <h2 id="titleForm" class="text-xl font-semibold mb-6">Add New Product</h2>
 
-    <form onsubmit="createProduct(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6  ">
+    <form onsubmit="saveProduct(event)" class="grid grid-cols-1 md:grid-cols-2 gap-6  ">
 
       <!-- Title -->
       <div>
@@ -42,11 +43,9 @@
         <label class="block mb-2 text-sm font-medium text-gray-900">
           Category ID
         </label>
-
         <select name="" id="categoryId"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder="Select Category">
-          <option value="">Select Category</option>
           <option value="">Loading...</option>
         </select>
       </div>
@@ -76,9 +75,13 @@
         <!-- <button onclick="clearForm()" class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
           clear
         </button> -->
-        <button type="submit" class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        <button id="actionBtn" type="submit"
+          class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
           Add
         </button>
+        <!-- <button type="submit" class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Save
+        </button> -->
 
 
       </div>
@@ -86,9 +89,7 @@
     </form>
   </div>
 
-
-
-
+  <!-- dashborad -->
   <div lass="max-w-7xl mx-auto mt-12 px-6">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg  p-6">
       <h3 class="text-xl font-semibold mb-6">Dashboard</h3>
@@ -145,7 +146,10 @@
           <tr>
             <th class="px-6 py-3">ID</th>
             <th class="px-6 py-3">Title</th>
+            <th class="px-6 py-3">Category</th>
             <th class="px-6 py-3">Description</th>
+            <th class="px-6 py-3">Photo</th>
+            <th class="px-6 py-3">Price</th>
             <th class="px-6 py-3">Actions</th>
           </tr>
         </thead>
@@ -154,6 +158,11 @@
             <td class="px-6 py-4">1</td>
             <td class="px-6 py-4 font-medium text-gray-900">MacBook Pro 14"</td>
             <td class="px-6 py-4 truncate max-w-xs">Apple laptop with M3 chip</td>
+            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
+            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
+            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
+
+
             <td class="px-6 py-4 flex gap-2">
               <button class="text-blue-600 hover:underline">Edit</button>
               <button class="text-red-600 hover:underline">Delete</button>
@@ -164,6 +173,9 @@
             <td class="px-6 py-4">2</td>
             <td class="px-6 py-4 font-medium text-gray-900">iPhone 15 Pro</td>
             <td class="px-6 py-4 truncate max-w-xs">Latest Apple smartphone</td>
+            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
+            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
+            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
             <td class="px-6 py-4 flex gap-2">
               <button class="text-blue-600 hover:underline">Edit</button>
               <button class="text-red-600 hover:underline">Delete</button>
@@ -174,6 +186,9 @@
             <td class="px-6 py-4">3</td>
             <td class="px-6 py-4 font-medium text-gray-900">Samsung Galaxy S24</td>
             <td class="px-6 py-4 truncate max-w-xs">Android flagship phone</td>
+            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
+            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
+            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
             <td class="px-6 py-4 flex gap-2">
               <button class="text-blue-600 hover:underline">Edit</button>
               <button class="text-red-600 hover:underline">Delete</button>
@@ -184,7 +199,10 @@
             <td class="px-6 py-4">4</td>
             <td class="px-6 py-4 font-medium text-gray-900">iPad Pro</td>
             <td class="px-6 py-4 truncate max-w-xs">High performance tablet</td>
-            <td class="px-6 py-4 flex gap-2">
+            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
+            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
+            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
+            <td class="px-6 py-4 flex gap-2 ">
               <button class="text-blue-600 hover:underline">Edit</button>
               <button class="text-red-600 hover:underline">Delete</button>
             </td>
@@ -253,10 +271,15 @@
     const imageUrlInput = document.getElementById('imageUrl');
     const categoryIdSelect = document.getElementById('categoryId');
 
+    const actionBtn = document.getElementById('actionBtn');
+    const titleForm = document.getElementById('titleForm');
+
+    let IsEdited;
 
 
 
 
+    // fuction create product call in function saveProduct 
     function createProduct(event) {
       event.preventDefault(); // Prevent form submission
       if (!titleInput.value || !priceInput.value || !categoryIdInput.value || !descriptionInput.value || !imageUrlInput.value) {
@@ -276,8 +299,44 @@
         console.log("Playload:", payload);
         GetProductsUserInput(payload);
 
+        event.target.reset(); // Clear form after submission
+      } catch (error) {
+        console.error('Error creating product:', error);
+      }
 
+    }
 
+    // call in save Prodcut fuction 
+    async function updateProduct(event) {
+      event.preventDefault(); // Prevent form submission
+      if (!titleInput.value || !priceInput.value || !categoryIdInput.value || !descriptionInput.value || !imageUrlInput.value) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      try {
+        const payload = {
+          title: titleInput.value,
+          price: priceInput.value,
+          categoryId: categoryIdInput.value,
+          description: descriptionInput.value,
+          images: [imageUrlInput.value]
+        };
+        console.log("Playload:", payload);
+
+        const response = await fetch(`${api_url}/api/v1/products/${IsEdited}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+        // covert to json
+        const product_update = await response.json();
+        console.log('Product updated :', product_update);
+
+        //get product to browser
+        fetchProducts()
 
         event.target.reset(); // Clear form after submission
       } catch (error) {
@@ -286,18 +345,19 @@
 
     }
 
-    // get all categories from api
-    // async function fetchCategories() {
-    //   try {
-    //     const response = await fetch(`${api_url}/api/v1/categories`);
-    //     const categories = await response.json();
-    //     console.log('Categories:', categories);
+    // check for update or create 
+    function saveProduct(event) {
+      if (IsEdited) {
+        // update product
+        updateProduct(event);
+        actionBtn.innerText = "Add";
+        titleForm.innerText = "Add new Product";
+        IsEdited = '';
 
-    //   } catch (error) {
-    //     console.error('Error fetching categories:', error);
-    //   }
-    // }
-    // fetchCategories();
+      } else {
+        createProduct(event);
+      }
+    }
 
 
     // function to post data to api
@@ -317,7 +377,6 @@
 
       //get product to browser
       fetchProducts()
-
 
     }
 
@@ -360,16 +419,21 @@
       tableBody.innerHTML = '';
 
       products.forEach(product => {
+
         const row = document.createElement('tr');
         row.classList.add('bg-white', 'border-b', 'hover:bg-gray-50');
 
         row.innerHTML = `
           <td class="px-6 py-4">${product.id}</td>
           <td class="px-6 py-4 font-medium text-gray-900">${product.title}</td>
+          <td class="px-6 py-4 font-medium text-gray-900">${product.category.name}</td>
           <td class="px-6 py-4 truncate max-w-xs">${product.description}</td>
-          <td class="px-6 py-4 flex gap-2">
-            <button class="text-blue-600 hover:underline" onclick="GetProductById(${product.id})">Edit</button>
-            <button class="text-red-600 hover:underline" onclick="DeleteProduct(${product.id})">Delete</button>
+          <td class="px-6 py-4 truncate max-w-xs"><img src="${product.images}" alt="Image from API" width="100" /></td>
+          <td class="px-6 py-4 truncate max-w-xs">$${product.price}</td>
+
+          <td class="flex gap-2 py-4">
+            <button class="text-blue-600 hover:underline cursor-pointer" onclick="GetProductById(${product.id})">Edit</button>
+            <button class="text-red-600 hover:underline cursor-pointer" onclick="DeleteProduct(${product.id})">Delete</button>
           </td>
         `;
 
@@ -388,7 +452,9 @@
     //   }
     // }
 
+    //delete product by id 
     const DeleteProduct = async (productId) => {
+
       // alert('Delete function called');
       if (confirm('Are you sure to delete this product?')) {
         try {
@@ -408,26 +474,15 @@
         // rander again after delete
         fetchProducts()
         console.log('Product deleted');
+
       } else {
         console.log('Delete cancelled');
       }
 
     };
 
-    // function edit 
-    async function EditProduct(productId) {
-      try {
-        const response = await fetch(`${api_url}/api/v1/products/${productId}`, {
-          method: 'PUT',
-        });
-      } catch (error) {
-        console.error('Error editing product:', error);
-      }
-
-    }
-
+    // get product to form for edit
     async function GetProductById(productId) {
-
       try {
         const response = await fetch(`${api_url}/api/v1/products/${productId}`);
         if (!response.ok) {
@@ -440,11 +495,17 @@
         categoryIdInput.value = product.category.id;
         imageUrlInput.value = product.images[0];
 
+        // give value to IsEdited to check for update or create fuction in save function
+        IsEdited = productId;
+
+        // chage h1 in form input
+        titleForm.innerText = "Update Product";
+        actionBtn.innerText = "Update" // change button text
+        // scroll to up for edit code 
+        window.scrollTo({ top: 0, behavior: "auto" });
+
         // ouput to see product details in console
         console.log('Product details:', product);
-
-
-
       } catch (error) {
         console.error('Error fetching product details:', error);
       }
@@ -459,8 +520,20 @@
         console.log('Categories fetched successfully', categories);
 
         categoryIdSelect.innerHTML = '<option value="">Select Category</option>';
+        // categoryIdSelect.innerHTML = '';
 
+        categories.forEach(category => {
+          //teacher code
+          categoryIdSelect.innerHTML += `
+            <option value="${category.id}"> ${category.name} </option>
+          `;
 
+          // ai generated code
+          // const option = document.createElement('option');
+          // option.value = category.id;
+          // option.textContent = category.name;
+          // categoryIdSelect.appendChild(option);
+        });
 
       } catch (error) {
         console.error('Error fetching categories:', error);
