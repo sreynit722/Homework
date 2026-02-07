@@ -76,7 +76,7 @@
           clear
         </button> -->
         <button id="actionBtn" type="submit"
-          class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          class="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
           Add
         </button>
         <!-- <button type="submit" class=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
@@ -135,9 +135,9 @@
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
           </div>
-          <input type="text" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300
+          <input id="txtSearch" oninput="searchProduct()" type="text" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300
          rounded-lg w-80 bg-gray-50
-         focus:ring-blue-500 focus:border-blue-500" placeholder="Search for users">
+         focus:ring-blue-500 focus:border-blue-500" placeholder="Search for product">
         </div>
       </div>
 
@@ -213,11 +213,11 @@
 
       <!-- Pagination -->
       <nav class="flex items-center justify-between p-4" aria-label="Table navigation">
-        <span class="text-sm text-gray-500">
-          Showing <span class="font-semibold">21</span>–<span class="font-semibold">30</span>
+        <span id="showNumber" class="text-sm text-gray-500">
+          <!-- Showing <span class="font-semibold">21</span>–<span class="font-semibold">30</span> -->
         </span>
-        <ul class="inline-flex items-center -space-x-px">
-          <li>
+        <ul id="pagination" class="inline-flex items-center -space-x-px">
+          <!-- <li>
             <button class="px-3 py-2 ml-0 leading-tight border rounded-l-lg hover:bg-gray-100">
               Previous
             </button>
@@ -251,7 +251,7 @@
             <button class="px-3 py-2 leading-tight border rounded-r-lg hover:bg-gray-100">
               Next
             </button>
-          </li>
+          </li> -->
         </ul>
       </nav>
     </div>
@@ -274,7 +274,10 @@
     const actionBtn = document.getElementById('actionBtn');
     const titleForm = document.getElementById('titleForm');
 
+    const txtSearch = document.getElementById("txtSearch");
+
     let IsEdited;
+    let currentPage;
 
 
 
@@ -387,17 +390,20 @@
     //   categoryIdInput.value = '';
     //   imageUrlInput.value = '';
     // }
-
+    function renderInfo(start, end) {
+      info.textContent = `Showing ${start + 1}–${Math.min(end, products.length)} of ${products.length}`;
+    }
 
 
     //get product form api 
-    async function fetchProducts() {
+    async function fetchProducts(page = 1) {
       try {
         // fetch all products to website
-        const response = await fetch(`${api_url}/api/v1/products`);
+        // const response = await fetch(`${api_url}/api/v1/products`);
 
+        const offset = (page - 1) * 10
         // fetch only 10 products
-        // const response = await fetch(`${api_url}/api/v1/products?offset=0&limit=10`);
+        const response = await fetch(`${api_url}/api/v1/products?offset=${offset}&limit=10`);
         const products = await response.json();
 
 
@@ -406,10 +412,13 @@
 
         //call function renderProducts
         renderProducts(products);
+        randerPagination(page);
 
+        return products;
       } catch (error) {
         console.error('Error fetching products:', error);
       }
+
     }
     fetchProducts();
 
@@ -478,10 +487,9 @@
       } else {
         console.log('Delete cancelled');
       }
-
     };
 
-    // get product to form for edit
+    // get product to from  for edit
     async function GetProductById(productId) {
       try {
         const response = await fetch(`${api_url}/api/v1/products/${productId}`);
@@ -541,6 +549,78 @@
     }
     getAllCategories();
 
+
+
+    // rander pagination 10 product per page
+    function randerPagination(page) {
+      const pagination = document.getElementById("pagination");
+      const showNumber = document.getElementById("showNumber");
+
+      pagination.innerHTML = "";
+      pagination.innerHTML += `
+        <li>
+          <button class="px-3 py-2 ml-0 leading-tight border rounded-l-lg hover:bg-gray-100 cursor-pointer" onclick="changePage(${page - 1})">
+            Previous
+          </button>
+        </li>
+      `
+      // number of pages
+      for (let i = 1; i <= 5; i++) {
+
+        pagination.innerHTML += `
+          <li>
+            <button class="px-3 py-2 border cursor-pointer ${(i) == page ? 'bg-blue-600 text-white' : ''}" onclick="changePage(${i})">
+              ${i} 
+            </button>
+          </li>
+        `
+        showNumber.innerHTML = `
+          Showing <span class="font-semibold">${(page - 1) * 10 + 1}</span>–<span class="font-semibold">${page * 10}</span>
+        `;
+      }
+      // button next 
+      pagination.innerHTML += `
+          <li>
+            <button onclick="changePage(${page + 1})" class="px-3 py-2 leading-tight border rounded-r-lg hover:bg-gray-100 cursor-pointer">
+              Next
+            </button>
+          </li>
+        `
+
+      d
+    }
+    randerPagination();
+
+    function changePage(page) {
+      if (page < 1) return;
+      currentPage = page;
+      fetchProducts(page);
+    }
+
+    async function searchProduct(page = 1) {
+
+      // get value form user input 
+      const searchValue = txtSearch.value;
+      const offset = (page - 1) * 10
+      try {
+        const response = await fetch(`${api_url}/api/v1/products?title=${searchValue}`);
+        const products = await response.json();
+
+        //show all product to browser
+        renderProducts(products);
+
+        randerPagination(page);
+      } catch (error) {
+        console.log("API Error", error)
+
+      }
+
+      // const searchValue = txtSearch.value.toLowerCase()
+
+      // const found = products.filter(p => p.name.toLowerCase().includes(searchValue))
+      // randerProduct(found)
+
+    }
 
 
   </script>
