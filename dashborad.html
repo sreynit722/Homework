@@ -9,6 +9,76 @@
 </head>
 
 <body class=" min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+            C
+          </div>
+          <div>
+            <h1 class="text-lg font-semibold text-gray-800">
+              CRUD Product
+            </h1>
+            <p class="text-xs text-gray-500">
+              Product Management
+            </p>
+          </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="hidden md:flex items-center gap-2">
+          <a href="#" class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium transition">
+            Dashboard
+          </a>
+
+          <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+            Products
+          </a>
+
+          <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+            Categories
+          </a>
+
+          <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+            Reports
+          </a>
+        </div>
+
+        <!-- Right Side -->
+        <div class="flex items-center gap-4">
+
+          <!-- Search -->
+          <div class="hidden md:flex  items-center rounded-lg px-3 py-2 w-64">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0011.15 11.15z" />
+            </svg>
+
+            <input type="text" placeholder="Search..."
+              class="w-full outline-none border border-gray-300 rounded-md  bg-transparent px-2 text-sm text-gray-700">
+          </div>
+
+          <!-- Profile -->
+          <button
+            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-semibold hover:bg-gray-300 transition">
+            N
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+
   <h1 id="" class="text-xl font-semibold mb-6 text-center mt-5 ">CRUD product from API</h1>
 
   <!-- form -->
@@ -154,6 +224,7 @@
           </tr>
         </thead>
         <tbody id="tableBody">
+          <!-- fix data  -->
           <tr class="bg-white border-b hover:bg-gray-50">
             <td class="px-6 py-4">1</td>
             <td class="px-6 py-4 font-medium text-gray-900">MacBook Pro 14"</td>
@@ -161,52 +232,12 @@
             <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
             <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
             <td class="px-6 py-4 truncate max-w-xs">$2999</td>
-
-
             <td class="px-6 py-4 flex gap-2">
               <button class="text-blue-600 hover:underline">Edit</button>
               <button class="text-red-600 hover:underline">Delete</button>
             </td>
           </tr>
 
-          <tr class="bg-white border-b hover:bg-gray-50">
-            <td class="px-6 py-4">2</td>
-            <td class="px-6 py-4 font-medium text-gray-900">iPhone 15 Pro</td>
-            <td class="px-6 py-4 truncate max-w-xs">Latest Apple smartphone</td>
-            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
-            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
-            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
-            <td class="px-6 py-4 flex gap-2">
-              <button class="text-blue-600 hover:underline">Edit</button>
-              <button class="text-red-600 hover:underline">Delete</button>
-            </td>
-          </tr>
-
-          <tr class="bg-white border-b hover:bg-gray-50">
-            <td class="px-6 py-4">3</td>
-            <td class="px-6 py-4 font-medium text-gray-900">Samsung Galaxy S24</td>
-            <td class="px-6 py-4 truncate max-w-xs">Android flagship phone</td>
-            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
-            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
-            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
-            <td class="px-6 py-4 flex gap-2">
-              <button class="text-blue-600 hover:underline">Edit</button>
-              <button class="text-red-600 hover:underline">Delete</button>
-            </td>
-          </tr>
-
-          <tr class="bg-white border-b hover:bg-gray-50">
-            <td class="px-6 py-4">4</td>
-            <td class="px-6 py-4 font-medium text-gray-900">iPad Pro</td>
-            <td class="px-6 py-4 truncate max-w-xs">High performance tablet</td>
-            <td class="px-6 py-4 truncate max-w-xs">Electronic</td>
-            <td class="px-6 py-4 truncate max-w-xs"><img src="" alt="..."></td>
-            <td class="px-6 py-4 truncate max-w-xs">$2999</td>
-            <td class="px-6 py-4 flex gap-2 ">
-              <button class="text-blue-600 hover:underline">Edit</button>
-              <button class="text-red-600 hover:underline">Delete</button>
-            </td>
-          </tr>
 
         </tbody>
       </table>
@@ -278,9 +309,6 @@
 
     let IsEdited;
     let currentPage;
-
-
-
 
     // fuction create product call in function saveProduct 
     function createProduct(event) {
@@ -383,16 +411,7 @@
 
     }
 
-    // function clearForm() {
-    //   titleInput.value = '';
-    //   priceInput.value = '';
-    //   descriptionInput.value = '';
-    //   categoryIdInput.value = '';
-    //   imageUrlInput.value = '';
-    // }
-    function renderInfo(start, end) {
-      info.textContent = `Showing ${start + 1}–${Math.min(end, products.length)} of ${products.length}`;
-    }
+
 
 
     //get product form api 
@@ -406,13 +425,14 @@
         const response = await fetch(`${api_url}/api/v1/products?offset=${offset}&limit=10`);
         const products = await response.json();
 
-
         // output to see all data not log 
         // console.log('products', JSON.stringify(products, null, 2));
 
         //call function renderProducts
         renderProducts(products);
-        randerPagination(page);
+
+        // randerPagination(page);
+        pagination(page);
 
         return products;
       } catch (error) {
@@ -460,6 +480,139 @@
     //     alert('Delete cancelled');
     //   }
     // }
+
+    // rander pagination 10 product per page
+    // function randerPagination(page) {
+
+
+    //   const pagination = document.getElementById("pagination");
+    //   const showNumber = document.getElementById("showNumber");
+
+    //   pagination.innerHTML = "";
+    //   pagination.innerHTML += `
+    //     <li>
+    //       <button class="px-3 py-2 ml-0 leading-tight border rounded-l-lg hover:bg-gray-100 cursor-pointer" onclick="changePage(${page - 1})">
+    //         Previous
+    //       </button>
+    //     </li>
+    //   `
+    //   // number of pages
+    //   for (let i = 1; i <= 5; i++) {
+
+    //     pagination.innerHTML += `
+    //       <li>
+    //         <button class="px-3 py-2 border cursor-pointer ${(i) == page ? 'bg-blue-600 text-white' : ''}" onclick="changePage(${i})">
+    //           ${i} 
+    //         </button>
+    //       </li>
+    //     `
+    //     showNumber.innerHTML = `
+    //       Showing <span class="font-semibold">${(page - 1) * 10 + 1}</span>–<span class="font-semibold">${page * 10}</span>
+    //     `;
+    //   }
+    //   // button next 
+    //   pagination.innerHTML += `
+    //       <li>
+    //         <button onclick="changePage(${page + 1})" class="px-3 py-2 leading-tight border rounded-r-lg hover:bg-gray-100 cursor-pointer">
+    //           Next
+    //         </button>
+    //       </li>
+    //     `
+    // }
+
+    // function changePage(page) {
+    //   if (page < 1) return;
+    //   currentPage = page;
+    //   fetchProducts(page);
+
+    // }
+
+    async function pagination(page = 1) {
+      const pagination = document.getElementById("pagination");
+      const showNumber = document.getElementById("showNumber");
+
+      let maxButtons = 5;
+      const limit = 10;
+
+      // Fetch data
+      const res = await fetch(`${api_url}/api/v1/products`);
+      const data = await res.json();
+
+      // Clear old data
+      pagination.innerHTML = "";
+
+      // Calculate
+      const start = (page - 1) * limit;
+      const end = start + limit;
+      const totalPages = Math.ceil(data.length / limit);
+
+      // Show posts
+      renderProducts(data.slice(start, end));
+
+      // Prev button
+      pagination.innerHTML += `
+        <li>
+          <button class="px-3 py-2 ml-0 leading-tight border rounded-l-lg hover:bg-gray-100 cursor-pointer" onclick="pagination(${page - 1})" ${page === 1 ? "disabled" : ""}>
+            Previous
+          </button>
+        </li>
+      `;
+      // Smart page buttons
+      let startPage = Math.max(page - 4, 1);
+      let endPage = Math.min(startPage + 4, totalPages);
+
+
+      for (let i = startPage; i <= endPage; i++) {
+        pagination.innerHTML += `
+          <li>
+            <button class="px-3 py-2 border cursor-pointer ${(i) == page ? 'bg-blue-600 text-white' : ''}"
+              onclick="pagination(${i})"
+              class="${page === i ? "active" : ""}">
+            ${i}
+          </button>
+          </li >
+        `
+        showNumber.innerHTML = `
+          Showing <span class="font-semibold">${(page - 1) * 10 + 1}</span>–<span class="font-semibold">${page * 10}</span>
+        `;
+        ;
+      }
+      // Next button
+      pagination.innerHTML += `
+            <li>
+              <button onclick="pagination(${page + 1})" ${page === totalPages ? "disabled" : ""} class="px-3 py-2 leading-tight border rounded-r-lg hover:bg-gray-100 cursor-pointer">
+                Next
+              </button>
+            </li>
+          `;
+    }
+
+    // Start
+    pagination();
+
+    async function searchProduct(page = 1) {
+
+      // get value form user input 
+      const searchValue = txtSearch.value;
+      const offset = (page - 1) * 10
+      try {
+        const response = await fetch(`${api_url}/api/v1/products?title=${searchValue}`);
+        const products = await response.json();
+
+        //show all product to browser
+        renderProducts(products);
+        randerPagination(page);
+      } catch (error) {
+        console.log("API Error", error)
+
+      }
+
+      // const searchValue = txtSearch.value.toLowerCase()
+      // const found = products.filter(p => p.name.toLowerCase().includes(searchValue))
+      // randerProduct(found)
+
+    }
+
 
     //delete product by id 
     const DeleteProduct = async (productId) => {
@@ -536,11 +689,6 @@
             <option value="${category.id}"> ${category.name} </option>
           `;
 
-          // ai generated code
-          // const option = document.createElement('option');
-          // option.value = category.id;
-          // option.textContent = category.name;
-          // categoryIdSelect.appendChild(option);
         });
 
       } catch (error) {
@@ -549,78 +697,6 @@
     }
     getAllCategories();
 
-
-
-    // rander pagination 10 product per page
-    function randerPagination(page) {
-      const pagination = document.getElementById("pagination");
-      const showNumber = document.getElementById("showNumber");
-
-      pagination.innerHTML = "";
-      pagination.innerHTML += `
-        <li>
-          <button class="px-3 py-2 ml-0 leading-tight border rounded-l-lg hover:bg-gray-100 cursor-pointer" onclick="changePage(${page - 1})">
-            Previous
-          </button>
-        </li>
-      `
-      // number of pages
-      for (let i = 1; i <= 5; i++) {
-
-        pagination.innerHTML += `
-          <li>
-            <button class="px-3 py-2 border cursor-pointer ${(i) == page ? 'bg-blue-600 text-white' : ''}" onclick="changePage(${i})">
-              ${i} 
-            </button>
-          </li>
-        `
-        showNumber.innerHTML = `
-          Showing <span class="font-semibold">${(page - 1) * 10 + 1}</span>–<span class="font-semibold">${page * 10}</span>
-        `;
-      }
-      // button next 
-      pagination.innerHTML += `
-          <li>
-            <button onclick="changePage(${page + 1})" class="px-3 py-2 leading-tight border rounded-r-lg hover:bg-gray-100 cursor-pointer">
-              Next
-            </button>
-          </li>
-        `
-
-      d
-    }
-    randerPagination();
-
-    function changePage(page) {
-      if (page < 1) return;
-      currentPage = page;
-      fetchProducts(page);
-    }
-
-    async function searchProduct(page = 1) {
-
-      // get value form user input 
-      const searchValue = txtSearch.value;
-      const offset = (page - 1) * 10
-      try {
-        const response = await fetch(`${api_url}/api/v1/products?title=${searchValue}`);
-        const products = await response.json();
-
-        //show all product to browser
-        renderProducts(products);
-
-        randerPagination(page);
-      } catch (error) {
-        console.log("API Error", error)
-
-      }
-
-      // const searchValue = txtSearch.value.toLowerCase()
-
-      // const found = products.filter(p => p.name.toLowerCase().includes(searchValue))
-      // randerProduct(found)
-
-    }
 
 
   </script>
